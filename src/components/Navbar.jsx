@@ -61,7 +61,10 @@ const Navbar = () => {
           Artists
         </p>
         <p className="bg-black text-white px-4 py-1 rounded-2xl cursor-pointer">
-          Albums
+          Genres
+        </p>
+        <p className="bg-black text-white px-4 py-1 rounded-2xl cursor-pointer">
+          Years
         </p>
       </div>
     </>
