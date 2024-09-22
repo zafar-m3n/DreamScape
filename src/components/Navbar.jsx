@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -48,6 +48,12 @@ const Navbar = () => {
           <p className="bg-purple-500 text-white w-10 h-10 text-[15px] flex items-center justify-center rounded-full">
             Ru
           </p>
+          <Link to="/login" className="text-green-500">
+            Login
+          </Link>
+          <Link to="/register" className="text-green-500">
+            Register
+          </Link>
         </div>
       </div>
       <div className="flex items-center gap-2 mt-4">
