@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="w-full flex justify-between items-center font-semibold">
@@ -11,7 +13,8 @@ const Navbar = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6"
+            className="w-6 cursor-pointer"
+            onClick={() => navigate(-1)}
           >
             <path
               strokeLinecap="round"
@@ -25,7 +28,8 @@ const Navbar = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6"
+            className="w-6 cursor-pointer"
+            onClick={() => navigate(+1)}
           >
             <path
               strokeLinecap="round"

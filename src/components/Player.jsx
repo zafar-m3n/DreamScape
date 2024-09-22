@@ -1,14 +1,26 @@
-import React from "react";
-import { songsData } from "./../assets/assets";
+import React, { useContext } from "react";
+import { PlayerContext } from "./../context/PlayerContext";
 
 const Player = () => {
+  const {
+    seekBar,
+    seekBg,
+    isPlaying,
+    play,
+    pause,
+    track,
+    duration,
+    previous,
+    next,
+    seekSong,
+  } = useContext(PlayerContext);
   return (
     <div className="h-[10%] bg-black flex justify-between items-center text-white px-4">
       <div className="hidden lg:flex items-center gap-4">
-        <img src={songsData[0].image} alt="" className="w-12" />
+        <img src={track.image} alt="" className="w-12" />
         <div>
-          <p>{songsData[0].name}</p>
-          <p>{songsData[0].desc.slice(0, 12)}</p>
+          <p>{track.name}</p>
+          <p>{track.desc.slice(0, 12)}</p>
         </div>
       </div>
       <div className="flex flex-col items-center gap-1 m-auto">
@@ -34,6 +46,7 @@ const Player = () => {
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6"
+            onClick={previous}
           >
             <path
               strokeLinecap="round"
@@ -41,6 +54,46 @@ const Player = () => {
               d="M21 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061A1.125 1.125 0 0 1 21 8.689v8.122ZM11.25 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061a1.125 1.125 0 0 1 1.683.977v8.122Z"
             />
           </svg>
+
+          {isPlaying ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6"
+              onClick={pause}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M14.25 9v6m-4.5 0V9M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6"
+              onClick={play}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z"
+              />
+            </svg>
+          )}
+
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -48,20 +101,7 @@ const Player = () => {
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M14.25 9v6m-4.5 0V9M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-            />
-          </svg>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6"
+            onClick={next}
           >
             <path
               strokeLinecap="round"
@@ -85,11 +125,22 @@ const Player = () => {
           </svg>
         </div>
         <div className="flex items-center gap-5">
-          <p>1:06</p>
-          <div className="w-[60vw] max-w-[500px] bg-gray-300 rounded-full cursor-pointer">
-            <hr className="h-1 border-none w-0 bg-green-800 rounded-full"></hr>
+          <p>
+            {duration.currentTime.minutes}:{duration.currentTime.seconds}
+          </p>
+          <div
+            ref={seekBg}
+            className="w-[60vw] max-w-[500px] bg-gray-300 rounded-full cursor-pointer"
+            onClick={seekSong}
+          >
+            <hr
+              ref={seekBar}
+              className="h-1 border-none w-0 bg-green-800 rounded-full"
+            ></hr>
           </div>
-          <p>3:21</p>
+          <p>
+            {duration.totalTime.minutes}:{duration.totalTime.seconds}
+          </p>
         </div>
       </div>
       <div className="hidden lg:flex items-center gap-2 opacity-75">
